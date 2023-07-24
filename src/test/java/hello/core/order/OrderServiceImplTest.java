@@ -1,17 +1,27 @@
 package hello.core.order;
 
-import hello.core.member.Grade;
-import hello.core.member.Member;
-import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
+import hello.core.discount.DiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
+import hello.core.member.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
 class OrderServiceImplTest {
-    private MemberService memberService = new MemberServiceImpl();
-    private OrderService orderService = new OrderServiceImpl();
+    private MemberRepository memberRepository;
+    private DiscountPolicy discountPolicy;
+    private MemberService memberService;
+    private OrderService orderService;
+
+    @BeforeEach
+    void beforeEach() {
+        this.memberRepository = new MemoryMemberRepository();
+        this.discountPolicy = new RateDiscountPolicy();
+        this.memberService = new MemberServiceImpl(this.memberRepository);
+        this.orderService = new OrderServiceImpl(this.memberRepository, this.discountPolicy);
+    }
 
     @Test
     void create() {

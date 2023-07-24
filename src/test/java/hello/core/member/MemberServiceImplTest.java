@@ -1,12 +1,19 @@
 package hello.core.member;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
 class MemberServiceImplTest {
-    private MemberService service = new MemberServiceImpl();
+    private MemberService service;
+
+    @BeforeEach
+    void beforeEach() {
+        this.service = new MemberServiceImpl(new MemoryMemberRepository());
+    }
 
     @Test
     void join() {
