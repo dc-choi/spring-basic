@@ -24,6 +24,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
     // 빈 이름은 무조건 다른 이름을 부여해야 한다. 이름이 같으면 충돌의 위험성이 있다.
+    // xml을 사용해서 빈을 생성할 수도 있다. 그 이유는 BeanDefinition이라는 추상화가 있어서 가능함.
+    // BeanDefinition을 통해 xml이든 자바 코드이든 상관없이 빈을 만들면 된다.
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
